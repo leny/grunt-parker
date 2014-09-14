@@ -7,17 +7,27 @@
  * Licensed under the MIT license.
  */
 "use strict";
-var Parker, chalk;
+var Parker, aMetrics, chalk, oMetric, oParsedMetrics, parker, _i, _len;
 
 chalk = require("chalk");
 
 Parker = require("parker");
 
+aMetrics = require("../node_modules/parker/metrics/all");
+
+parker = new Parker(aMetrics);
+
+oParsedMetrics = {};
+
+for (_i = 0, _len = aMetrics.length; _i < _len; _i++) {
+  oMetric = aMetrics[_i];
+  oParsedMetrics[oMetric.id] = oMetric;
+}
+
 module.exports = function(grunt) {
   return grunt.registerMultiTask("parker", "Stylesheet analysis", function() {
-    var aLogFileLines, aMetrics, oError, oMetric, oOptions, oParsedMetrics, oProjectPackage, parker, sDefaultTitle, sDescription, sHomePage, sTitle, sVersion, _i, _len;
+    var aLogFileLines, oError, oOptions, oProjectPackage, sDefaultTitle, sDescription, sHomePage, sTitle, sVersion;
     oOptions = this.options({
-      metrics: "all",
       file: false,
       title: false,
       colophon: false,
@@ -25,20 +35,6 @@ module.exports = function(grunt) {
     });
     aLogFileLines = [];
     sDefaultTitle = "Grunt Parker Report";
-    try {
-      aMetrics = require("../node_modules/parker/metrics/" + oOptions.metrics);
-    } catch (_error) {
-      oError = _error;
-      grunt.log.writeln("");
-      grunt.log.writeln(chalk.yellow.bold("Oops:"), "No file for metric " + (chalk.cyan(oOptions.metrics)) + " found. Disabling " + (chalk.green('metrics')) + " option.");
-      aMetrics = require("../node_modules/parker/metrics/all");
-    }
-    parker = new Parker(aMetrics);
-    oParsedMetrics = {};
-    for (_i = 0, _len = aMetrics.length; _i < _len; _i++) {
-      oMetric = aMetrics[_i];
-      oParsedMetrics[oMetric.id] = oMetric;
-    }
     if (oOptions.usePackage) {
       try {
         oProjectPackage = grunt.file.readJSON("" + (process.cwd()) + "/package.json");

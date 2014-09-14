@@ -10,31 +10,22 @@
 
 chalk = require "chalk"
 Parker = require "parker"
+aMetrics = require "../node_modules/parker/metrics/all"
+parker = new Parker aMetrics
+
+oParsedMetrics = {}
+oParsedMetrics[ oMetric.id ] = oMetric for oMetric in aMetrics
 
 module.exports = ( grunt ) ->
 
     grunt.registerMultiTask "parker", "Stylesheet analysis", ->
         oOptions = @options
-            metrics: "all"
             file: no
             title: no
             colophon: no
             usePackage: no
         aLogFileLines = []
         sDefaultTitle = "Grunt Parker Report"
-
-        try
-            aMetrics = require "../node_modules/parker/metrics/#{ oOptions.metrics }"
-        catch oError
-            grunt.log.writeln ""
-            grunt.log.writeln chalk.yellow.bold( "Oops:" ), "No file for metric #{ chalk.cyan( oOptions.metrics ) } found. Disabling #{ chalk.green( 'metrics' ) } option."
-            aMetrics = require "../node_modules/parker/metrics/all"
-
-        parker = new Parker aMetrics
-
-        oParsedMetrics = {}
-        for oMetric in aMetrics
-            oParsedMetrics[ oMetric.id ] = oMetric
 
         if oOptions.usePackage
             try
