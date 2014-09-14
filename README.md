@@ -1,8 +1,13 @@
 # grunt-parker
 
+![NPM version](http://img.shields.io/npm/v/grunt-parker.svg) ![Dependency Status](https://david-dm.org/leny/grunt-parker.svg) ![Downloads counter](http://img.shields.io/npm/dm/grunt-parker.svg)
+
 > Grunt plugin for parker, a stylesheet analysis tool.
 
+* * *
+
 ## Getting Started
+
 This plugin requires Grunt `~0.4.5`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
@@ -37,53 +42,76 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### options.file
 
-A string value that is used to do something with whatever.
+Type: `String` (file path)  
+Default value: `false`
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+A file path to log the reported results, in *markdown* format.  
+If `false` is given, the file will not be written.
 
-A string value that is used to do something else with whatever else.
+#### options.title
+
+Type: `String`  
+Default value: `Grunt Parker Report`
+
+When logging the reported results to file, use this as title of the markdown document.
+
+#### options.colophon
+
+Type: `Boolean`  
+Default value: `false`
+
+When logging the reported results to file, use colophon and timestamp as footer of the markdown document.
+
+#### options.usePackage
+
+Type: `Boolean`  
+Default value: `false`
+
+When enabled, if you launch your grunt-packer task from a folder containing a `package.json` file (like 99% of use cases), grunt-packer will use some of the package's informations to make the report file a little more informative (use project's name as title, show version and description, links to the homepage…).
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+
+In this example, the default options are used to shows the results of the parker analysis for the given files.
 
 ```js
 grunt.initConfig({
   parker: {
     options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    src: [
+      'test/*.css'
+    ],
   },
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+
+In this example, custom options are used to shows the results of the parker analysis for the given files, and write the results on a file named `report.md`
 
 ```js
 grunt.initConfig({
   parker: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      file: "report.md",
+      colophon: true,
+      usePackage: true
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    src: [
+      'test/*.css'
+    ]
+  }
 });
 ```
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+
+In lieu of a formal styleguide, take care to maintain the existing coding style.  
+Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+
+* **2014/09/14** : v0.1.0
