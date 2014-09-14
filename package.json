@@ -45,7 +45,6 @@
   },
   "dependencies": {
     "chalk": "^0.5.1",
-    "parker": "0.0.8",
-    "text-table": "^0.2.0"
+    "parker": "0.0.8"
   }
 }
