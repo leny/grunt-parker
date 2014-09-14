@@ -51,10 +51,15 @@ module.exports = ( grunt ) ->
                 files:
                     "tasks/parker.js": "src/parker.coffee"
         parker:
-            default: {}
+            default:
+                src: [ "test/*.css" ]
             custom:
                 options:
+                    metrics: "dumb"
                     file: "report.md"
+                    colophon: yes
+                    usePackage: yes
+                src: [ "test/*.css" ]
 
     grunt.loadTasks "tasks"
 
