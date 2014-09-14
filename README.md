@@ -2,7 +2,7 @@
 
 ![NPM version](http://img.shields.io/npm/v/grunt-parker.svg) ![Dependency Status](https://david-dm.org/leny/grunt-parker.svg) ![Downloads counter](http://img.shields.io/npm/dm/grunt-parker.svg)
 
-> Grunt plugin for parker, a stylesheet analysis tool.
+> Grunt plugin for [parker](https://github.com/katiefenn/parker), a stylesheet analysis tool.
 
 * * *
 
