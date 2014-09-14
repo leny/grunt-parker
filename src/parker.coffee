@@ -111,6 +111,14 @@ module.exports = ( grunt ) ->
                     aLogFileLines.push ""
 
         if oOptions.file
+
+            if oOptions.colophon
+                aLogFileLines.push ""
+                aLogFileLines.push "* * *"
+                aLogFileLines.push ""
+                aLogFileLines.push "Last generated: #{ grunt.template.today() } by [grunt-packer](https://github.com/leny/grunt-packer)."
+                aLogFileLines.push ""
+
             grunt.file.write oOptions.file, aLogFileLines.join "\n"
             grunt.log.writeln()
             grunt.log.writeln "Logged in #{ chalk.yellow( oOptions.file ) }"
