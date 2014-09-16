@@ -59,7 +59,6 @@ By now, grunt-parker accepts the following metrics :
 - `TotalIdentifiers`
 - `TotalDeclarations`
 - `SelectorsPerRule`
-- `DeclarationsPerRule`
 - `IdentifiersPerSelector`
 - `SpecificityPerSelector`
 - `TopSelectorSpecificity`
