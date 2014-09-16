@@ -42,6 +42,35 @@ grunt.initConfig({
 
 ### Options
 
+#### options.metrics
+
+Type: `Array` (metric names)  
+Default value: `false`
+
+An array of the metrics to use in parker.  
+By default, grunt-parker use all available metrics.
+
+By now, grunt-parker accepts the following metrics :
+
+- `TotalStylesheets`
+- `TotalStylesheetSize`
+- `TotalRules`
+- `TotalSelectors`
+- `TotalIdentifiers`
+- `TotalDeclarations`
+- `SelectorsPerRule`
+- `DeclarationsPerRule`
+- `IdentifiersPerSelector`
+- `SpecificityPerSelector`
+- `TopSelectorSpecificity`
+- `TopSelectorSpecificitySelector`
+- `TotalIdSelectors`
+- `TotalUniqueColours`
+- `UniqueColours`
+- `TotalImportantKeywords`
+- `TotalMediaQueries`
+- `MediaQueries`
+
 #### options.file
 
 Type: `String` (file path)  
@@ -90,12 +119,18 @@ grunt.initConfig({
 
 #### Custom Options
 
-In this example, custom options are used to shows the results of the parker analysis for the given files, and write the results on a file named `report.md`
+In this example, custom options are used to shows the results of the parker analysis for the given files, with only the four given metrics, and write the results on a file named `report.md`
 
 ```js
 grunt.initConfig({
   parker: {
     options: {
+      metrics: [
+        "TotalRules",
+        "TotalSelectors",
+        "TotalIdentifiers",
+        "TotalDeclarations"
+      ],
       file: "report.md",
       colophon: true,
       usePackage: true
