@@ -55,6 +55,12 @@ module.exports = ( grunt ) ->
                 src: [ "test/*.css" ]
             custom:
                 options:
+                    metrics: [
+                        "TotalRules"
+                        "TotalSelectors"
+                        "TotalIdentifiers"
+                        "TotalDeclarations"
+                    ]
                     file: "report.md"
                     colophon: yes
                     usePackage: yes
