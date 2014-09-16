@@ -149,4 +149,5 @@ Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
 
+* **2014/09/16** : v0.1.1
 * **2014/09/14** : v0.1.0
