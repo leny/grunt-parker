@@ -2,7 +2,7 @@
  * grunt-todo
  * https://github.com/Leny/grunt-todo
  *
- * Copyright (c) 2013 Leny
+ * Copyright (c) 2014 leny
  * Licensed under the MIT license.
 ###
 
@@ -10,22 +10,28 @@
 
 chalk = require "chalk"
 Parker = require "parker"
-aMetrics = require "../node_modules/parker/metrics/all"
-parker = new Parker aMetrics
-
-oParsedMetrics = {}
-oParsedMetrics[ oMetric.id ] = oMetric for oMetric in aMetrics
 
 module.exports = ( grunt ) ->
 
     grunt.registerMultiTask "parker", "Stylesheet analysis", ->
         oOptions = @options
+            metrics: no
             file: no
             title: no
             colophon: no
             usePackage: no
         aLogFileLines = []
         sDefaultTitle = "Grunt Parker Report"
+
+        if grunt.util.kindOf( oOptions.metrics ) is "array"
+            aMetrics = ( require "../node_modules/parker/metrics/#{ sMetric }.js" for sMetric in oOptions.metrics )
+        else
+            aMetrics = require "../node_modules/parker/metrics/All.js"
+
+        parker = new Parker aMetrics
+
+        oParsedMetrics = {}
+        oParsedMetrics[ oMetric.id ] = oMetric for oMetric in aMetrics
 
         if oOptions.usePackage
             try

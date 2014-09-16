@@ -3,31 +3,21 @@
  * grunt-todo
  * https://github.com/Leny/grunt-todo
  *
- * Copyright (c) 2013 Leny
+ * Copyright (c) 2014 leny
  * Licensed under the MIT license.
  */
 "use strict";
-var Parker, aMetrics, chalk, oMetric, oParsedMetrics, parker, _i, _len;
+var Parker, chalk;
 
 chalk = require("chalk");
 
 Parker = require("parker");
 
-aMetrics = require("../node_modules/parker/metrics/all");
-
-parker = new Parker(aMetrics);
-
-oParsedMetrics = {};
-
-for (_i = 0, _len = aMetrics.length; _i < _len; _i++) {
-  oMetric = aMetrics[_i];
-  oParsedMetrics[oMetric.id] = oMetric;
-}
-
 module.exports = function(grunt) {
   return grunt.registerMultiTask("parker", "Stylesheet analysis", function() {
-    var aLogFileLines, oError, oOptions, oProjectPackage, sDefaultTitle, sDescription, sHomePage, sTitle, sVersion;
+    var aLogFileLines, aMetrics, oError, oMetric, oOptions, oParsedMetrics, oProjectPackage, parker, sDefaultTitle, sDescription, sHomePage, sMetric, sTitle, sVersion, _i, _len;
     oOptions = this.options({
+      metrics: false,
       file: false,
       title: false,
       colophon: false,
@@ -35,6 +25,26 @@ module.exports = function(grunt) {
     });
     aLogFileLines = [];
     sDefaultTitle = "Grunt Parker Report";
+    if (grunt.util.kindOf(oOptions.metrics) === "array") {
+      aMetrics = (function() {
+        var _i, _len, _ref, _results;
+        _ref = oOptions.metrics;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          sMetric = _ref[_i];
+          _results.push(require("../node_modules/parker/metrics/" + sMetric + ".js"));
+        }
+        return _results;
+      })();
+    } else {
+      aMetrics = require("../node_modules/parker/metrics/All.js");
+    }
+    parker = new Parker(aMetrics);
+    oParsedMetrics = {};
+    for (_i = 0, _len = aMetrics.length; _i < _len; _i++) {
+      oMetric = aMetrics[_i];
+      oParsedMetrics[oMetric.id] = oMetric;
+    }
     if (oOptions.usePackage) {
       try {
         oProjectPackage = grunt.file.readJSON("" + (process.cwd()) + "/package.json");
@@ -79,7 +89,7 @@ module.exports = function(grunt) {
     this.filesSrc.filter(function(sFilePath) {
       return grunt.file.exists(sFilePath) && grunt.file.isFile(sFilePath);
     }).forEach(function(sFilePath) {
-      var aFileResults, aResult, aResults, mValue, oParkerMetrics, sMetric, sResult, sValue, _j, _len1;
+      var aFileResults, aResult, aResults, mValue, oParkerMetrics, sResult, sValue, _j, _len1;
       aResults = [];
       aFileResults = [];
       oParkerMetrics = parker.run(grunt.file.read(sFilePath));
