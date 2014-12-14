@@ -15,6 +15,12 @@
     "email": "info@flatland.be",
     "url": "http://leny.me"
   },
+  "contributors": [
+    {
+      "name": "Oliver Farrell",
+      "url": "http://oliverjfarrell.co.uk"
+    }
+  ]
   "repository": {
     "type": "git",
     "url": "git://github.com/leny/grunt-parker.git"
