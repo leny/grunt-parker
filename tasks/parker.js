@@ -149,7 +149,7 @@ module.exports = function(grunt) {
         aLogFileLines.push("");
         aLogFileLines.push("* * *");
         aLogFileLines.push("");
-        aLogFileLines.push("Last generated: " + (grunt.template.today()) + " by [grunt-packer](https://github.com/leny/grunt-packer).");
+        aLogFileLines.push("Last generated: " + (grunt.template.today()) + " by [grunt-parker](https://github.com/leny/grunt-parker).");
         aLogFileLines.push("");
       }
       grunt.file.write(oOptions.file, aLogFileLines.join("\n"));
