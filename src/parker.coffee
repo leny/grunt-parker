@@ -24,9 +24,9 @@ module.exports = ( grunt ) ->
         sDefaultTitle = "Grunt Parker Report"
 
         if grunt.util.kindOf( oOptions.metrics ) is "array"
-            aMetrics = ( require "../node_modules/parker/metrics/#{ sMetric }.js" for sMetric in oOptions.metrics )
+            aMetrics = ( require "parker/metrics/#{ sMetric }.js" for sMetric in oOptions.metrics )
         else
-            aMetrics = require "../node_modules/parker/metrics/All.js"
+            aMetrics = require "parker/metrics/All.js"
 
         parker = new Parker aMetrics
 
