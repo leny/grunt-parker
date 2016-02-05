@@ -15,7 +15,7 @@ Parker = require("parker");
 
 module.exports = function(grunt) {
   return grunt.registerMultiTask("parker", "Stylesheet analysis", function() {
-    var aLogFileLines, aMetrics, oError, oMetric, oOptions, oParsedMetrics, oProjectPackage, parker, sDefaultTitle, sDescription, sHomePage, sMetric, sTitle, sVersion, _i, _len;
+    var aLogFileLines, aMetrics, i, len, oError, oMetric, oOptions, oParsedMetrics, oProjectPackage, parker, sDefaultTitle, sDescription, sHomePage, sMetric, sTitle, sVersion;
     oOptions = this.options({
       metrics: false,
       file: false,
@@ -27,27 +27,27 @@ module.exports = function(grunt) {
     sDefaultTitle = "Grunt Parker Report";
     if (grunt.util.kindOf(oOptions.metrics) === "array") {
       aMetrics = (function() {
-        var _i, _len, _ref, _results;
-        _ref = oOptions.metrics;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          sMetric = _ref[_i];
-          _results.push(require("parker/metrics/" + sMetric + ".js"));
+        var i, len, ref, results;
+        ref = oOptions.metrics;
+        results = [];
+        for (i = 0, len = ref.length; i < len; i++) {
+          sMetric = ref[i];
+          results.push(require("parker/metrics/" + sMetric + ".js"));
         }
-        return _results;
+        return results;
       })();
     } else {
       aMetrics = require("parker/metrics/All.js");
     }
     parker = new Parker(aMetrics);
     oParsedMetrics = {};
-    for (_i = 0, _len = aMetrics.length; _i < _len; _i++) {
-      oMetric = aMetrics[_i];
+    for (i = 0, len = aMetrics.length; i < len; i++) {
+      oMetric = aMetrics[i];
       oParsedMetrics[oMetric.id] = oMetric;
     }
     if (oOptions.usePackage) {
       try {
-        oProjectPackage = grunt.file.readJSON("" + (process.cwd()) + "/package.json");
+        oProjectPackage = grunt.file.readJSON((process.cwd()) + "/package.json");
       } catch (_error) {
         oError = _error;
         grunt.log.writeln("");
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
     this.filesSrc.filter(function(sFilePath) {
       return grunt.file.exists(sFilePath) && grunt.file.isFile(sFilePath);
     }).forEach(function(sFilePath) {
-      var aFileResults, aResult, aResults, mValue, oParkerMetrics, sResult, sValue, _j, _len1;
+      var aFileResults, aResult, aResults, j, len1, mValue, oParkerMetrics, sResult, sValue;
       aResults = [];
       aFileResults = [];
       oParkerMetrics = parker.run(grunt.file.read(sFilePath));
@@ -102,35 +102,35 @@ module.exports = function(grunt) {
           grunt.log.writeln();
           grunt.log.writeln(chalk.underline(sFilePath));
           grunt.log.writeln();
-          for (_j = 0, _len1 = aResults.length; _j < _len1; _j++) {
-            aResult = aResults[_j];
+          for (j = 0, len1 = aResults.length; j < len1; j++) {
+            aResult = aResults[j];
             sValue = (function() {
-              var _k, _l, _len2, _len3, _ref, _ref1, _results;
+              var k, l, len2, len3, ref, ref1, results;
               switch (grunt.util.kindOf(aResult[1])) {
                 case "array":
-                  grunt.log.writeln(chalk.cyan("" + aResult[0] + ":"));
-                  _ref = aResult[1];
-                  for (_k = 0, _len2 = _ref.length; _k < _len2; _k++) {
-                    sResult = _ref[_k];
+                  grunt.log.writeln(chalk.cyan(aResult[0] + ":"));
+                  ref = aResult[1];
+                  for (k = 0, len2 = ref.length; k < len2; k++) {
+                    sResult = ref[k];
                     grunt.log.writeln("\t" + sResult);
                   }
                   aFileResults.push("- **" + aResult[0] + ":**");
-                  _ref1 = aResult[1];
-                  _results = [];
-                  for (_l = 0, _len3 = _ref1.length; _l < _len3; _l++) {
-                    sResult = _ref1[_l];
+                  ref1 = aResult[1];
+                  results = [];
+                  for (l = 0, len3 = ref1.length; l < len3; l++) {
+                    sResult = ref1[l];
                     if (sResult.substring(0, 1) === "#") {
                       sResult = "`" + sResult + "`";
                     }
-                    _results.push(aFileResults.push("\t- " + sResult));
+                    results.push(aFileResults.push("\t- " + sResult));
                   }
-                  return _results;
+                  return results;
                   break;
                 case "number":
-                  grunt.log.writeln(chalk.cyan("" + aResult[0] + ":"), chalk.yellow(aResult[1]));
+                  grunt.log.writeln(chalk.cyan(aResult[0] + ":"), chalk.yellow(aResult[1]));
                   return aFileResults.push("- **" + aResult[0] + ":** " + aResult[1]);
                 default:
-                  grunt.log.writeln(chalk.cyan("" + aResult[0] + ":"), aResult[1]);
+                  grunt.log.writeln(chalk.cyan(aResult[0] + ":"), aResult[1]);
                   return aFileResults.push("- **" + aResult[0] + ":** " + aResult[1]);
               }
             })();
