@@ -32,12 +32,12 @@ module.exports = function(grunt) {
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           sMetric = _ref[_i];
-          _results.push(require("../node_modules/parker/metrics/" + sMetric + ".js"));
+          _results.push(require("parker/metrics/" + sMetric + ".js"));
         }
         return _results;
       })();
     } else {
-      aMetrics = require("../node_modules/parker/metrics/All.js");
+      aMetrics = require("parker/metrics/All.js");
     }
     parker = new Parker(aMetrics);
     oParsedMetrics = {};
