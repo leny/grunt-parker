@@ -1,6 +1,6 @@
 {
   "name": "grunt-parker",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Grunt plugin for parker, a stylesheet analysis tool.",
   "keywords": [
     "gruntplugin",
@@ -19,6 +19,10 @@
     {
       "name": "Oliver Farrell",
       "url": "http://oliverjfarrell.co.uk"
+    },
+    {
+      "name": "Tane Morgan",
+      "url": "https://github.com/tanem"
     }
   ],
   "repository": {
