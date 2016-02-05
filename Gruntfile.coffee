@@ -80,6 +80,5 @@ module.exports = ( grunt ) ->
     ]
 
     grunt.registerTask "test", [
-        "clean"
         "parker"
     ]
