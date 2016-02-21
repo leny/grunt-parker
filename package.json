@@ -51,7 +51,7 @@
     "matchdep": "^1.0.0"
   },
   "peerDependencies": {
-    "grunt": "^0.4.5"
+    "grunt": ">=0.4.0"
   },
   "dependencies": {
     "chalk": "^1.1.1",
