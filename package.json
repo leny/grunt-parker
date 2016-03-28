@@ -55,6 +55,6 @@
   },
   "dependencies": {
     "chalk": "^1.1.1",
-    "parker": "0.0.9"
+    "parker": "0.0.10"
   }
 }
