@@ -81,24 +81,28 @@ module.exports = ( grunt ) ->
                         ]
 
                     if aResults.length
-                        grunt.log.writeln()
-                        grunt.log.writeln chalk.underline sFilePath
-                        grunt.log.writeln()
+                        unless oOptions.file
+                            grunt.log.writeln()
+                            grunt.log.writeln chalk.underline sFilePath
+                            grunt.log.writeln()
                         for aResult in aResults
                             sValue = switch grunt.util.kindOf aResult[ 1 ]
                                 when "array"
-                                    grunt.log.writeln chalk.cyan( "#{ aResult[ 0 ] }:" )
-                                    grunt.log.writeln "\t#{ sResult }" for sResult in aResult[ 1 ]
+                                    unless oOptions.file
+                                        grunt.log.writeln chalk.cyan( "#{ aResult[ 0 ] }:" )
+                                        grunt.log.writeln "\t#{ sResult }" for sResult in aResult[ 1 ]
                                     aFileResults.push "- **#{ aResult[ 0 ] }:**"
                                     for sResult in aResult[ 1 ]
                                         if sResult.substring( 0, 1 ) is "#"
                                             sResult = "`#{ sResult }`"
                                         aFileResults.push "\t- #{ sResult }"
                                 when "number"
-                                    grunt.log.writeln chalk.cyan( "#{ aResult[ 0 ] }:" ), chalk.yellow aResult[ 1 ]
+                                    unless oOptions.file
+                                        grunt.log.writeln chalk.cyan( "#{ aResult[ 0 ] }:" ), chalk.yellow aResult[ 1 ]
                                     aFileResults.push "- **#{ aResult[ 0 ] }:** #{ aResult[ 1 ] }"
                                 else
-                                    grunt.log.writeln chalk.cyan( "#{ aResult[ 0 ] }:" ), aResult[ 1 ]
+                                    unless oOptions.file
+                                        grunt.log.writeln chalk.cyan( "#{ aResult[ 0 ] }:" ), aResult[ 1 ]
                                     aFileResults.push "- **#{ aResult[ 0 ] }:** #{ aResult[ 1 ] }"
 
                 if oOptions.file and aFileResults.length
