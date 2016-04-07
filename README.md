@@ -76,7 +76,8 @@ Type: `String` (file path)
 Default value: `false`
 
 A file path to log the reported results, in *markdown* format.  
-If `false` is given, the file will not be written.
+If `false` is given, the file will not be written.  
+**Note:** using a file as output will silence the console output.
 
 #### options.title
 
