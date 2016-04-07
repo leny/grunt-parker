@@ -99,20 +99,22 @@ module.exports = function(grunt) {
           aResults.push([oParsedMetrics[sMetric].name, mValue]);
         }
         if (aResults.length) {
-          grunt.log.writeln();
-          grunt.log.writeln(chalk.underline(sFilePath));
-          grunt.log.writeln();
+          if(!oOptions.file){
+            grunt.log.writeln();
+            grunt.log.writeln(chalk.underline(sFilePath));
+            grunt.log.writeln();
+          }
           for (j = 0, len1 = aResults.length; j < len1; j++) {
             aResult = aResults[j];
             sValue = (function() {
               var k, l, len2, len3, ref, ref1, results;
               switch (grunt.util.kindOf(aResult[1])) {
                 case "array":
-                  grunt.log.writeln(chalk.cyan(aResult[0] + ":"));
+                  if(!oOptions.file){ grunt.log.writeln(chalk.cyan(aResult[0] + ":")); }
                   ref = aResult[1];
                   for (k = 0, len2 = ref.length; k < len2; k++) {
                     sResult = ref[k];
-                    grunt.log.writeln("\t" + sResult);
+                    if(!oOptions.file){ grunt.log.writeln("\t" + sResult); }
                   }
                   aFileResults.push("- **" + aResult[0] + ":**");
                   ref1 = aResult[1];
@@ -127,10 +129,10 @@ module.exports = function(grunt) {
                   return results;
                   break;
                 case "number":
-                  grunt.log.writeln(chalk.cyan(aResult[0] + ":"), chalk.yellow(aResult[1]));
+                  if(!oOptions.file){ grunt.log.writeln(chalk.cyan(aResult[0] + ":"), chalk.yellow(aResult[1])); }
                   return aFileResults.push("- **" + aResult[0] + ":** " + aResult[1]);
                 default:
-                  grunt.log.writeln(chalk.cyan(aResult[0] + ":"), aResult[1]);
+                  if(!oOptions.file){ grunt.log.writeln(chalk.cyan(aResult[0] + ":"), aResult[1]); }
                   return aFileResults.push("- **" + aResult[0] + ":** " + aResult[1]);
               }
             })();
