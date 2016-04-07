@@ -15,7 +15,7 @@ Parker = require("parker");
 
 module.exports = function(grunt) {
   return grunt.registerMultiTask("parker", "Stylesheet analysis", function() {
-    var aLogFileLines, aMetrics, i, len, oError, oMetric, oOptions, oParsedMetrics, oProjectPackage, parker, sDefaultTitle, sDescription, sHomePage, sMetric, sTitle, sVersion;
+    var aLogFileLines, aMetrics, error, i, len, oError, oMetric, oOptions, oParsedMetrics, oProjectPackage, parker, sDefaultTitle, sDescription, sHomePage, sMetric, sTitle, sVersion;
     oOptions = this.options({
       metrics: false,
       file: false,
@@ -48,8 +48,8 @@ module.exports = function(grunt) {
     if (oOptions.usePackage) {
       try {
         oProjectPackage = grunt.file.readJSON((process.cwd()) + "/package.json");
-      } catch (_error) {
-        oError = _error;
+      } catch (error) {
+        oError = error;
         grunt.log.writeln("");
         grunt.log.writeln(chalk.yellow.bold("Oops:"), "No " + (chalk.cyan('package.json')) + " file found. Disabling " + (chalk.green('usePackage')) + " option.");
         oOptions.usePackage = false;
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
           aResults.push([oParsedMetrics[sMetric].name, mValue]);
         }
         if (aResults.length) {
-          if(!oOptions.file){
+          if (!oOptions.file) {
             grunt.log.writeln();
             grunt.log.writeln(chalk.underline(sFilePath));
             grunt.log.writeln();
@@ -110,11 +110,13 @@ module.exports = function(grunt) {
               var k, l, len2, len3, ref, ref1, results;
               switch (grunt.util.kindOf(aResult[1])) {
                 case "array":
-                  if(!oOptions.file){ grunt.log.writeln(chalk.cyan(aResult[0] + ":")); }
-                  ref = aResult[1];
-                  for (k = 0, len2 = ref.length; k < len2; k++) {
-                    sResult = ref[k];
-                    if(!oOptions.file){ grunt.log.writeln("\t" + sResult); }
+                  if (!oOptions.file) {
+                    grunt.log.writeln(chalk.cyan(aResult[0] + ":"));
+                    ref = aResult[1];
+                    for (k = 0, len2 = ref.length; k < len2; k++) {
+                      sResult = ref[k];
+                      grunt.log.writeln("\t" + sResult);
+                    }
                   }
                   aFileResults.push("- **" + aResult[0] + ":**");
                   ref1 = aResult[1];
@@ -129,10 +131,14 @@ module.exports = function(grunt) {
                   return results;
                   break;
                 case "number":
-                  if(!oOptions.file){ grunt.log.writeln(chalk.cyan(aResult[0] + ":"), chalk.yellow(aResult[1])); }
+                  if (!oOptions.file) {
+                    grunt.log.writeln(chalk.cyan(aResult[0] + ":"), chalk.yellow(aResult[1]));
+                  }
                   return aFileResults.push("- **" + aResult[0] + ":** " + aResult[1]);
                 default:
-                  if(!oOptions.file){ grunt.log.writeln(chalk.cyan(aResult[0] + ":"), aResult[1]); }
+                  if (!oOptions.file) {
+                    grunt.log.writeln(chalk.cyan(aResult[0] + ":"), aResult[1]);
+                  }
                   return aFileResults.push("- **" + aResult[0] + ":** " + aResult[1]);
               }
             })();

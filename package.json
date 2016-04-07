@@ -1,6 +1,6 @@
 {
   "name": "grunt-parker",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Grunt plugin for parker, a stylesheet analysis tool.",
   "keywords": [
     "gruntplugin",
@@ -27,6 +27,10 @@
     {
       "name": "Lars Olesen",
       "url": "https://github.com/lsolesen"
+    },
+    {
+      "name": "Jason Weir",
+      "url": "https://github.com/Gidgidonihah"
     }
   ],
   "repository": {
