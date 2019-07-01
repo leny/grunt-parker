@@ -55,7 +55,7 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-coffeelint": "0.0.16",
-    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-coffee": "^2.1.0",
     "matchdep": "^1.0.1"
   },
   "dependencies": {
