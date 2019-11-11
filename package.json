@@ -59,7 +59,7 @@
     "matchdep": "^2.0.0"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "parker": "0.0.10"
   }
 }
